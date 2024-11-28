@@ -6,7 +6,7 @@ set -e
 # Variables
 DOMAIN="your_domain"  # Replace with your domain
 EMAIL="your_email@example.com"  # Replace with your email for Certbot
-DOCKER_COMPOSE_VERSION="2.30.3"
+DOCKER_COMPOSE_VERSION="v2.30.3"
 
 # Update package list and install prerequisites
 echo "Updating package list..."
