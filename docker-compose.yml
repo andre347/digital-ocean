@@ -10,19 +10,6 @@ services:
     networks:
       - web-network
 
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - /etc/letsencrypt:/etc/letsencrypt
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - app
-    networks:
-      - web-network
-
   certbot:
     image: certbot/certbot
     volumes:
