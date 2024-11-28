@@ -1,0 +1,28 @@
+{
+  "name": "rootaccessonly",
+  "version": "1.0.0",
+  "description": "A server-side rendered HTML website using Express and TypeScript",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "docker:build": "docker build -t my-express-app .",
+    "docker:run": "docker run -p 3000:3000 my-express-app",
+    "docker:compose:up": "docker-compose up",
+    "docker:compose:down": "docker-compose down"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "ts-node-dev": "^2.0.0"
+  }
+}

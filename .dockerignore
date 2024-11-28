@@ -1,0 +1,42 @@
+# Node modules and logs
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build output
+dist
+
+# Docker files
+Dockerfile
+docker-compose.yml
+
+# Environment variables
+.env
+
+# MacOS files
+.DS_Store
+
+# Logs
+logs
+*.log
+
+# Temporary files
+tmp
+*.tmp
+*.swp
+
+# Git files
+.git
+.gitignore
+
+# IDE and editor files
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+# Nginx configuration (if you have local backups or different configs)
+nginx/nginx.conf.backup
+
+# Other files
+coverage
