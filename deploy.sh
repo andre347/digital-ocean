@@ -7,22 +7,37 @@ set -e
 DOMAIN="your_domain"  # Replace with your domain
 EMAIL="your_email@example.com"  # Replace with your email for Certbot
 
-# Update package list and install prerequisites
-echo "Updating package list..."
+# Update package list and upgrade existing packages
+echo "Updating package list and upgrading packages..."
+sudo apt update && sudo apt upgrade -y
+
+# Install Docker
+echo "Installing Docker..."
+sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" -y
 sudo apt update
+sudo apt install docker-ce -y
 
-# Install Docker using the convenience script
-echo "Installing Docker using the convenience script..."
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
+# Install Docker Compose
+echo "Installing Docker Compose..."
+sudo rm -f /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
-# Add the current user to the Docker group to run Docker commands without sudo
-echo "Adding user to the Docker group..."
-sudo usermod -aG docker $USER
+# Ensure Docker Compose is executable and in path
+sudo chmod +x /usr/local/bin/docker-compose
+sudo ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
 
-# Verify Docker installation
-echo "Verifying Docker installation..."
-docker --version
+# Verify Docker Compose installation
+docker-compose --version
+if [ $? -ne 0 ]; then
+  echo "Docker Compose installation failed. Exiting."
+  exit 1
+fi
+
+# Ensure Docker starts on boot and start Docker service
+sudo systemctl enable docker
+sudo systemctl start docker
 
 # Navigate to the project directory (assuming the script is run from the project directory)
 echo "Navigating to the project directory..."
@@ -36,7 +51,7 @@ fi
 
 # Build and run the Docker containers
 echo "Building and starting Docker containers..."
-docker compose up --build -d
+docker-compose up --build -d
 
 # Allow HTTP traffic through the firewall
 echo "Configuring firewall to allow HTTP traffic..."
