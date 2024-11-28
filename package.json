@@ -9,8 +9,8 @@
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "docker:build": "docker build -t my-express-app .",
     "docker:run": "docker run -p 3000:3000 my-express-app",
-    "docker:compose:up": "docker-compose up",
-    "docker:compose:down": "docker-compose down"
+    "docker:compose:up": "docker compose up",
+    "docker:compose:down": "docker compose down"
   },
   "keywords": [],
   "author": "",
