@@ -6,7 +6,6 @@ set -e
 # Variables
 DOMAIN="your_domain"  # Replace with your domain
 EMAIL="your_email@example.com"  # Replace with your email for Certbot
-DOCKER_COMPOSE_VERSION="v2.30.3"
 
 # Update package list and install prerequisites
 echo "Updating package list..."
@@ -16,10 +15,9 @@ sudo apt update
 echo "Installing Docker..."
 sudo apt install -y docker.io
 
-# Install Docker Compose
-echo "Installing Docker Compose..."
-sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# Verify Docker Compose is available
+echo "Checking Docker Compose version..."
+docker compose version
 
 # Navigate to the project directory (assuming the script is run from the project directory)
 echo "Navigating to the project directory..."
@@ -33,7 +31,7 @@ fi
 
 # Build and run the Docker containers
 echo "Building and starting Docker containers..."
-docker-compose up --build -d
+docker compose up --build -d
 
 # Allow HTTP traffic through the firewall
 echo "Configuring firewall to allow HTTP traffic..."
